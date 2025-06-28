@@ -1,0 +1,73 @@
+Diagrama 1:  Asignar un Turno a Paciente
+
+@startuml
+'DIAGRAMA ESTADOS - Asignar un Turno a Paciente'
+
+[*] --> VerificarRegistro : Paciente solicita turno
+
+VerificarRegistro --> SeleccionarMedico : Paciente registrado
+VerificarRegistro --> RegistrarPaciente : Paciente no registrado
+
+note left of RegistrarPaciente
+Se contempla si es menor de edad
+y se asigna responsable
+end note
+
+RegistrarPaciente --> SeleccionarMedico : Registro completado
+SeleccionarMedico --> SeleccionarTurno: Médico seleccionado
+SeleccionarTurno --> NotificarPaciente: Turno disponible
+SeleccionarTurno --> RevisarAlternativas: Turno no disponible
+RevisarAlternativas --> SeleccionarTurno
+
+note right of SeleccionarTurno
+Se contempla la fecha y horario
+end note
+
+NotificarPaciente --> [*]: Turno creado con éxito
+
+@enduml
+
+-------------------------------------------------
+
+Diagrama 2:  Asignar un Turno a Paciente
+
+@startuml
+
+'DIAGRAMA ESTADOS - Registrar Paciente '
+[*] --> RecibirDatos: Paciente envía datos
+
+RecibirDatos --> VerificarEdad
+VerificarEdad --> AsignarResponsable : Es menor
+VerificarEdad --> GuardarDatos : Es mayor
+
+AsignarResponsable --> GuardarDatos
+GuardarDatos --> [*]: Registro Exitoso
+
+@enduml
+
+-------------------------------------------------
+
+Diagrama 3: Turno
+
+@startuml
+
+'DIAGRAMA ESTADOS - Turno'
+
+[*] --> Disponible: Solicita Turno
+
+
+Disponible --> CrearTurno
+Notificiar --> Asistido
+Notificiar --> Cancelado
+Notificiar --> Reprogramado
+Reprogramado --> Disponible
+Notificiar --> NoAsistido
+NoAsistido --> EnviarAdvertencia
+CrearTurno --> Notificiar
+
+
+Asistido --> [*]
+Cancelado --> [*]
+EnviarAdvertencia --> [*]
+
+@enduml
