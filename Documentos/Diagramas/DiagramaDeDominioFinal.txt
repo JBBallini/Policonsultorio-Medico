@@ -74,10 +74,17 @@ class Turno{
   hora: Time
   paciente: Paciente
   profesional: Medico
-  estado: String
+  estadoAsistencia: Boolean
+  pago: Pago
 
   confirmarAsistencia()
   cancelar()
+}
+
+class Pago{
+   paciente: Paciente
+   monto: Double
+   estadoPago: Boolean
 }
 
 class Secretario{
@@ -104,6 +111,7 @@ Persona <|-- Responsable
 Sistema *-- Informe
 Turno *-- Medico: "0..*"
 Turno *-- Paciente: "0..*"
+Turno *-- Pago: "1"
 
 Medico -->  Horario : "1..*"
 Administrador --> Usuario: "1"

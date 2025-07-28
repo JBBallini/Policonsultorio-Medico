@@ -29,7 +29,7 @@ NotificarPaciente --> [*]: Turno creado con éxito
 
 -------------------------------------------------
 
-Diagrama 2:  Asignar un Turno a Paciente
+Diagrama 2:  Registrar Paciente
 
 @startuml
 
@@ -64,9 +64,12 @@ Reprogramado --> Disponible
 Notificiar --> NoAsistido
 NoAsistido --> EnviarAdvertencia
 CrearTurno --> Notificiar
+Asistido --> Pagado
+Asistido --> NoPagado
 
 
-Asistido --> [*]
+Pagado --> [*]
+NoPagado --> [*]
 Cancelado --> [*]
 EnviarAdvertencia --> [*]
 

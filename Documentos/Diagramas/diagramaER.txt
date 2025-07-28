@@ -1,4 +1,4 @@
-@startuml
+startuml
 
 ' DEFINICIONES GENERALES DEL DIAGRAMA
 !define table(x) class x << (T,#FFAAAA) >>
@@ -82,7 +82,14 @@ table(Turno) {
   foreignKey(dniMedico): <b>(FK)</b>
   fecha: Date
   hora: Time
-  estado: String
+  estadoAsistencia: Boolean
+}
+
+table(Pago) {
+   primaryKey(id): int <b>(PK)</b>
+   foreignKey(idTurno): <b>(FK)</b>
+   monto: Double
+   estadoPago: Boolean
 }
 
 
@@ -97,5 +104,6 @@ Paciente ||--o{ Turno
 Medico ||--o{ Turno
 HistorialMedico ||--|| Paciente
 HistorialMedico ||--|| Medico
+Pago ||--|| Turno
 
 @enduml
