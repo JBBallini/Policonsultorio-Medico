@@ -7,10 +7,11 @@ from medicos.models import Medico
 class HistorialMedico(models.Model):
     id = models.AutoField(primary_key=True)
 
-    dniPaciente = models.ForeignKey(
+    #Relacion 1 a 1 del historial médico con el paciente
+    dniPaciente = models.OneToOneField(
         Paciente, 
-        on_delete=models.CASCADE, 
-        related_name='historiales'
+        on_delete=models.CASCADE,
+        related_name='historial'
     )
 
     def __str__(self):

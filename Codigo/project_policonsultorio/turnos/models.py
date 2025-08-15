@@ -11,12 +11,14 @@ class Turno(models.Model):
     hora = models.TimeField()
     estadoAsistencia = models.BooleanField(default=False)
 
+    #Relación 1 a N entre el paciente y los turnos
     dniPaciente = models.ForeignKey(
         Paciente, 
         on_delete=models.CASCADE, 
         related_name='turnos'
     )
 
+    #Relación 1 a N entre el médico y los turnos
     dniMedico = models.ForeignKey(
         Medico, 
         on_delete=models.CASCADE, 
@@ -33,6 +35,7 @@ class Pago(models.Model):
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     estadoPago = models.BooleanField(default=False)
     
+    #Relación 1 a 1 entre el turno y el pago
     idTurno = models.OneToOneField(
         Turno, 
         on_delete=models.CASCADE, 

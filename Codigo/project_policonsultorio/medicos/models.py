@@ -13,7 +13,7 @@ class Medico(models.Model):
     especialidad = models.CharField(max_length=50)
     matricula = models.CharField(max_length=50)
 
-    #ForeignKey de Mecido con Usuario
+    #ForeignKey 1 a 1 de Médico con Usuario
     idUsuario = models.OneToOneField(  
         Usuario,
         on_delete=models.CASCADE,
@@ -30,6 +30,7 @@ class Horario(models.Model):
     horaInicio = models.TimeField()
     horaFin = models.TimeField()
 
+    #Relacion 1 a N de Medico con Horarios
     dniMedico = models.ForeignKey(
         Medico, 
         on_delete=models.CASCADE, 

@@ -25,7 +25,7 @@ class Administrador(models.Model):
     telefono = models.CharField(max_length=15)
     email = models.EmailField()
 
-    #PK con usuario
+    #Relación 1 a 1 del Administrador con Usuario
     idUsuario = models.OneToOneField(
         Usuario,
         on_delete=models.CASCADE,
@@ -43,7 +43,7 @@ class Secretario(models.Model):
     telefono = models.CharField(max_length=15)
     email = models.EmailField()
 
-    #PK con usuario
+    #Relación 1 a 1 del Secretario con Usuario
     idUsuario = models.OneToOneField(
         Usuario,
         on_delete=models.CASCADE,
