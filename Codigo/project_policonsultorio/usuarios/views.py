@@ -1,9 +1,11 @@
 from django.shortcuts import render
 
-# usuarios/views.py
 from rest_framework import viewsets
 from .models import Usuario, Administrador, Secretario
 from .serializers import UsuarioSerializer, AdministradorSerializer, SecretarioSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()

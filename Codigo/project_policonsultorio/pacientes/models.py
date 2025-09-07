@@ -30,5 +30,8 @@ class Responsable(models.Model):
     paciente = models.OneToOneField(
         Paciente, 
         on_delete=models.CASCADE,
-        related_name='responsable'
+        related_name='responsable',
+        #El null=true permite que el campo del responsable en paciente pueda estar vacío
+        null=True, 
+        blank=True
     )

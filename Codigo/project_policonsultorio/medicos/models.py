@@ -2,7 +2,6 @@
 from django.db import models
 from usuarios.models import Usuario
 
-#Tabla Medico
 class Medico(models.Model):
     dniMedico = models.CharField(max_length=20, primary_key=True)
 
@@ -13,26 +12,42 @@ class Medico(models.Model):
     especialidad = models.CharField(max_length=50)
     matricula = models.CharField(max_length=50)
 
-    #ForeignKey 1 a 1 de Médico con Usuario
-    idUsuario = models.OneToOneField(  
+    idUsuario = models.OneToOneField(
         Usuario,
         on_delete=models.CASCADE,
-        related_name='medico'
+        related_name='medico',
+        null=True,
+        blank=True
     )
 
     def __str__(self):
         return f"Dr. {self.apellido} ({self.especialidad})"
 
-#Tabla Horario
+
 class Horario(models.Model):
+    DIAS_SEMANA = [
+        ('LUN', 'Lunes'),
+        ('MAR', 'Martes'),
+        ('MIE', 'Miércoles'),
+        ('JUE', 'Jueves'),
+        ('VIE', 'Viernes'),
+    ]
+
     id = models.AutoField(primary_key=True)
+    diaSemana = models.CharField(
+        max_length=3,
+        choices=DIAS_SEMANA,
+        default='LUN' 
+    )
 
     horaInicio = models.TimeField()
     horaFin = models.TimeField()
 
-    #Relacion 1 a N de Medico con Horarios
     dniMedico = models.ForeignKey(
-        Medico, 
-        on_delete=models.CASCADE, 
+        Medico,
+        on_delete=models.CASCADE,
         related_name='horarios'
     )
+
+    def __str__(self):
+        return f"{self.get_diaSemana_display()} {self.horaInicio}-{self.horaFin}"

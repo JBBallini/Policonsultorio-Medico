@@ -60,3 +60,9 @@ Levantar el servidor
 Hacer endpoints básicos con POSTMAN
     -> http://127.0.0.1:8000/api/pacientes/
     -> http://127.0.0.1:8000/api/medicos/
+
+
+Comandos importantes:
+    Para borrar todas las migraciones:
+        -> find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+        -> find . -path "*/migrations/*.pyc"  -delete

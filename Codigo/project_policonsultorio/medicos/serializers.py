@@ -1,13 +1,34 @@
 
 from rest_framework import serializers
 from .models import Medico, Horario
-
-class MedicoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Medico
-        fields = '__all__'
+from usuarios.models import Usuario
 
 class HorarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Horario
-        fields = '__all__'
+        fields = ["diaSemana","horaInicio", "horaFin"]
+
+class MedicoSerializer(serializers.ModelSerializer):
+    # Eliminamos idUsuario de los campos obligatorios
+    horarios = HorarioSerializer(many=True, required=False)  # Permite crear horarios opcionales
+
+    class Meta:
+        model = Medico
+        fields = [
+            "dniMedico",
+            "nombre",
+            "apellido",
+            "telefono",
+            "email",
+            "especialidad",
+            "matricula",
+            "horarios"
+        ]
+
+    def create(self, validated_data):
+        horarios_data = validated_data.pop('horarios', [])
+        medico = Medico.objects.create(**validated_data)
+        for horario in horarios_data:
+            Horario.objects.create(dniMedico=medico, **horario)
+        return medico
+
