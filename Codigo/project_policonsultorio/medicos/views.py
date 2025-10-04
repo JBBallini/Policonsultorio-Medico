@@ -6,11 +6,12 @@ from rest_framework.response import Response
 from .serializers import MedicoSerializer, HorarioSerializer
 from .models import Medico, Horario
 
+#CRUD de médico
 class MedicoViewSet(viewsets.ModelViewSet):
     queryset = Medico.objects.all()
     serializer_class = MedicoSerializer
 
-# Endpoint personalizado para registrar médicos
+# Endpoint personalizado para registrar médicos con api/registro-medico/
 class RegistroMedicoView(APIView):
     def post(self, request):
         serializer = MedicoSerializer(data=request.data)
@@ -22,12 +23,12 @@ class RegistroMedicoView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#Registro de horarios
+#CRUD de los horarios
 class HorarioViewSet(viewsets.ModelViewSet):
     queryset = Horario.objects.all()
     serializer_class = HorarioSerializer
 
-    # Filtrar horarios por médico
+    # Función que retorna los horarios de un médico a partir de su DNI (queda por las dudas)
     def get_queryset(self):
         queryset = super().get_queryset()
         dni_medico = self.request.query_params.get('dni_medico')

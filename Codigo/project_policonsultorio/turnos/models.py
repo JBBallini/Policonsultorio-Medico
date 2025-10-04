@@ -3,7 +3,7 @@ from django.db import models
 from pacientes.models import Paciente
 from medicos.models import Medico
 
-#Tabla de Turnos
+#Entidad de Turnos
 class Turno(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -11,14 +11,14 @@ class Turno(models.Model):
     hora = models.TimeField()
     estadoAsistencia = models.BooleanField(default=False)
 
-    #Relación 1 a N entre el paciente y los turnos
+    #Relación 1 a N entre el paciente y los turnos del mismo
     dniPaciente = models.ForeignKey(
         Paciente, 
         on_delete=models.CASCADE, 
         related_name='turnos'
     )
 
-    #Relación 1 a N entre el médico y los turnos
+    #Relación 1 a N entre el médico y los turnos asignados
     dniMedico = models.ForeignKey(
         Medico, 
         on_delete=models.CASCADE, 
@@ -28,7 +28,7 @@ class Turno(models.Model):
     def __str__(self):
         return f"Turno {self.id} - {self.fecha} {self.hora}"
 
-#Tabla de Pago
+#Entidad para el pago del turno
 class Pago(models.Model):
     id = models.AutoField(primary_key=True)
 

@@ -9,8 +9,8 @@ class HorarioSerializer(serializers.ModelSerializer):
         fields = ["diaSemana","horaInicio", "horaFin"]
 
 class MedicoSerializer(serializers.ModelSerializer):
-    # Eliminamos idUsuario de los campos obligatorios
-    horarios = HorarioSerializer(many=True, required=False)  # Permite crear horarios opcionales
+    # Eliminamos idUsuario de los campos obligatorios y permitimos registrar un médico con varios horarios
+    horarios = HorarioSerializer(many=True, required=False)
 
     class Meta:
         model = Medico
@@ -25,6 +25,7 @@ class MedicoSerializer(serializers.ModelSerializer):
             "horarios"
         ]
 
+    #Realizamos un overwrite del create de médicos para crearlos con sus horarios de trabajo (el médico se crea con lista de horarios)
     def create(self, validated_data):
         horarios_data = validated_data.pop('horarios', [])
         medico = Medico.objects.create(**validated_data)

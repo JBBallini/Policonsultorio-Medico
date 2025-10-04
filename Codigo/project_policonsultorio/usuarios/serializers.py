@@ -8,12 +8,18 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ["username", "password", "rol"]
+        #La contraseña es writeonly para no retornala en alguna response
         extra_kwargs = {
             "password": {"write_only": True}
         }
 
+    #Hacemos un overwrite del create para validar los datos y encriptar las contraseñas
     def create(self, validated_data):
-        usuario = Usuario.objects.create(**validated_data)
+        password = validated_data.pop("password")
+        usuario = Usuario(**validated_data)
+        #Encripta contraseña
+        usuario.set_password(password)
+        usuario.save()
         return usuario
 
 class AdministradorSerializer(serializers.ModelSerializer):

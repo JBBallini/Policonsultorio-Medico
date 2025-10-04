@@ -2,6 +2,7 @@
 from django.db import models
 from usuarios.models import Usuario
 
+#Entidad Paciente
 class Paciente(models.Model):
     dniPaciente = models.CharField(max_length=20, primary_key=True)
     
@@ -16,6 +17,7 @@ class Paciente(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
+#Entidad Responsable
 class Responsable(models.Model):
     dniResponsable = models.CharField(max_length=20, primary_key=True)
     nombre = models.CharField(max_length=100)
@@ -31,7 +33,7 @@ class Responsable(models.Model):
         Paciente, 
         on_delete=models.CASCADE,
         related_name='responsable',
-        #El null=true permite que el campo del responsable en paciente pueda estar vacío
+        #El null=true permite que el campo del responsable en paciente pueda estar vacío (0 o 1 paciente)
         null=True, 
         blank=True
     )

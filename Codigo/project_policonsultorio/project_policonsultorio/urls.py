@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from usuarios.views import UsuarioViewSet, AdministradorViewSet, SecretarioViewSet
+from usuarios.views import UsuarioViewSet, AdministradorViewSet, SecretarioViewSet, CambiarPasswordView
 from pacientes.views import PacienteViewSet, ResponsableViewSet
 from medicos.views import MedicoViewSet
 from historiales.views import HistorialMedicoViewSet, RegistroHistorialViewSet
@@ -10,6 +10,7 @@ from medicos.views import RegistroMedicoView
 from turnos.views import TurnoViewSet
 from turnos.views import RegistroTurnoView
 from turnos.views import PagoViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
@@ -35,4 +36,12 @@ urlpatterns = [
 
     # Endpoint para registrar turno
     path('api/registro-turno/', RegistroTurnoView.as_view(), name='registro-turno'),
+
+    #Seguridad de token Autenticación para login (Se usa para loguearse), luego api/usuarios/ lo usaremos para crear los usuarios
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    #URL cambio de contraseña
+    path("api/change-password/", CambiarPasswordView.as_view(), name="change-password"),
 ]

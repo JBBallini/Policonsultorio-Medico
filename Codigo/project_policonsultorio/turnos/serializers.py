@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models import Turno, Pago
 from datetime import datetime, timedelta
 
+#Serializer de pago
 class PagoSerializer(serializers.ModelSerializer):
     idTurno = serializers.PrimaryKeyRelatedField(read_only=True)
 
@@ -11,6 +12,7 @@ class PagoSerializer(serializers.ModelSerializer):
         model = Pago
         fields = ["monto", "estadoPago", "idTurno"]
 
+#Serializer registro de turno
 class RegistroTurnoSerializer(serializers.ModelSerializer):
     monto = serializers.DecimalField(max_digits=10, decimal_places=2, write_only=True)
 
@@ -18,6 +20,10 @@ class RegistroTurnoSerializer(serializers.ModelSerializer):
         model = Turno
         fields = ["fecha", "hora", "dniPaciente", "dniMedico", "monto"]
     
+    """
+        Validamos que no haya turnos superpuestos para el mismo médico.
+        Debe haber un intervalo de 20 min entre cada turno.
+    """
     def validate(self, data):
         medico = data.get("dniMedico")
         fecha = data.get("fecha")
@@ -29,12 +35,13 @@ class RegistroTurnoSerializer(serializers.ModelSerializer):
         nuevo_dt = datetime.combine(fecha, hora)
         intervalo = timedelta(minutes=20)
 
-        # Excluir instancia actual si es update
+        #Excluir instancia actual si es update
         instance_pk = getattr(self.instance, "pk", None)
         existentes = Turno.objects.filter(dniMedico=medico, fecha=fecha)
         if instance_pk:
             existentes = existentes.exclude(pk=instance_pk)
 
+        #Si se intenta crear un turno en un intervalo menor a 20min, lanza un error.
         for t in existentes:
             existente_dt = datetime.combine(t.fecha, t.hora)
             if abs((existente_dt - nuevo_dt)) < intervalo:
@@ -43,12 +50,17 @@ class RegistroTurnoSerializer(serializers.ModelSerializer):
                 )
         return data
 
+    """
+        Modificamos el create del turno.
+        Primero creamos el turno y luego le vinculamos el pago correspondiente
+    """
     def create(self, validated_data):
         monto = validated_data.pop("monto")
         turno = Turno.objects.create(**validated_data)
         Pago.objects.create(idTurno=turno, monto=monto)
         return turno
 
+#Serializer de turno
 class TurnoSerializer(serializers.ModelSerializer):
     pago = PagoSerializer(read_only=True)
 
@@ -56,7 +68,7 @@ class TurnoSerializer(serializers.ModelSerializer):
         model = Turno
         fields = ["fecha", "hora", "estadoAsistencia", "dniPaciente", "dniMedico", "pago"]
 
-    # Aplica misma validación para creaciones/updates directas via /api/turnos/
+    # Aplicamos la misma validación de los intervalos para creaciones o updates directas cuando se usa el endpoint /api/turnos/
     def validate(self, data):
         medico = data.get("dniMedico") or getattr(self.instance, "dniMedico", None)
         fecha = data.get("fecha") or getattr(self.instance, "fecha", None)

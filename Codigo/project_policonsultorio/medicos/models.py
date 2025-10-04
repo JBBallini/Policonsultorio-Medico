@@ -2,6 +2,7 @@
 from django.db import models
 from usuarios.models import Usuario
 
+#Entidad del médico
 class Medico(models.Model):
     dniMedico = models.CharField(max_length=20, primary_key=True)
 
@@ -12,6 +13,7 @@ class Medico(models.Model):
     especialidad = models.CharField(max_length=50)
     matricula = models.CharField(max_length=50)
 
+    #Relacion 1 a 1 entre Médico y Usuario
     idUsuario = models.OneToOneField(
         Usuario,
         on_delete=models.CASCADE,
@@ -23,7 +25,7 @@ class Medico(models.Model):
     def __str__(self):
         return f"Dr. {self.apellido} ({self.especialidad})"
 
-
+#Modelo del horario de cada médico con los días restringidos y elección de un rango horario
 class Horario(models.Model):
     DIAS_SEMANA = [
         ('LUN', 'Lunes'),
@@ -36,13 +38,16 @@ class Horario(models.Model):
     id = models.AutoField(primary_key=True)
     diaSemana = models.CharField(
         max_length=3,
+        #Choices se usa, en este caso, para decir que días tomar
         choices=DIAS_SEMANA,
         default='LUN' 
     )
 
+    #Rango Horario de trabajo
     horaInicio = models.TimeField()
     horaFin = models.TimeField()
 
+    #Relación 1 a N de entre médico y horarios
     dniMedico = models.ForeignKey(
         Medico,
         on_delete=models.CASCADE,
