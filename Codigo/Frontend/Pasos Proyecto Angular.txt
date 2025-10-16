@@ -1,0 +1,16 @@
+1) Tener Node.js y extensión "Angular Language Service" en VSC
+2) Instalar:
+	- npm install npm@latest -g
+	- npm install -g @angular/cli
+Nota: En caso de no poder ejecutar comandos npm, ejecutar powerShell como admin y "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser"
+
+3) Crear un nuevo proyecto "ng new (nombreProyecto)"
+Elegir:
+	? Add analytics? NO
+	? Add routing? YES
+	? Which stylesheet format? CSS
+	? Enable SSG/Prerendering? NO
+	? Enable zone-less change detection? NO
+	? AI Tools? (opcional, a elección)
+
+4) Moverse a la carpeta del proyecto y ejecutar el servidor: "ng serve"
