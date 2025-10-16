@@ -1,0 +1,58 @@
+<h2>Registro de Médico</h2>
+
+<button class="volver" (click)="volverALista()">VOLVER</button>
+
+<form [formGroup]="medicoForm" (ngSubmit)="registrarMedico()">
+  <label>DNI:</label>
+  <input formControlName="dniMedico" required />
+
+  <label>Nombre:</label>
+  <input formControlName="nombre" required />
+
+  <label>Apellido:</label>
+  <input formControlName="apellido" required />
+
+  <label>Teléfono:</label>
+  <input formControlName="telefono" required />
+
+  <label>Email:</label>
+  <input formControlName="email" required />
+
+  <label>Especialidad:</label>
+  <input formControlName="especialidad" required />
+
+  <label>Matrícula:</label>
+  <input formControlName="matricula" required />
+
+  <h3>Horarios</h3>
+  <div formArrayName="horarios">
+    <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i" class="horario">
+      <!-- Seleccion de dia de la semana -->
+      <select formControlName="diaSemana">
+        <option value="LUN">Lunes</option>
+        <option value="MAR">Martes</option>
+        <option value="MIE">Miércoles</option>
+        <option value="JUE">Jueves</option>
+        <option value="VIE">Viernes</option>
+      </select>
+      <input type="time" formControlName="horaInicio" />
+      <input type="time" formControlName="horaFin" />
+      <button type="button" (click)="eliminarHorario(i)">Eliminar</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="agregarHorario()">+ Agregar horario</button>
+  <br /><br />
+
+  <button type="submit">Registrar Médico</button>
+</form>
+
+@if (mensaje) {
+  <div class="mensaje">{{ mensaje }}</div>
+}
+
+@if (error) {
+  <div class="error">{{ error }}</div>
+}
+
+

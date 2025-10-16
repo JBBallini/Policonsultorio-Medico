@@ -1,0 +1,91 @@
+<button type="button" (click)="volverAListaDePacientes()" style="width: 15%;">VOLVER</button>
+
+<div class="container">
+  <h2>Editar Paciente</h2>
+
+  <div *ngIf="cargando">Cargando datos...</div>
+
+  <form *ngIf="!cargando" [formGroup]="pacienteForm" (ngSubmit)="actualizarPaciente()">
+
+    <!-- PACIENTE -->
+    <fieldset>
+      <legend>Datos del Paciente</legend>
+
+      <label>DNI:</label>
+      <input formControlName="dniPaciente" />
+
+      <label>Nombre:</label>
+      <input formControlName="nombre" />
+
+      <label>Apellido:</label>
+      <input formControlName="apellido" />
+
+      <label>Teléfono:</label>
+      <input formControlName="telefono" />
+
+      <label>Email:</label>
+      <input formControlName="email" />
+
+      <label>Fecha de nacimiento:</label>
+      <input
+        type="date"
+        formControlName="fechaNacimiento"
+        (change)="verificarEdadParaResponsable()"
+      />
+
+      <label>Dirección:</label>
+      <input formControlName="direccion" />
+
+      <label>Tipo de sangre:</label>
+      <input formControlName="tipoSangre" />
+    </fieldset>
+
+    <!-- RESPONSABLE -->
+    <fieldset *ngIf="tieneResponsable" [formGroup]="responsableForm">
+      <legend>Datos del Responsable</legend>
+
+      <label>DNI Responsable:</label>
+      <input formControlName="dniResponsable" />
+
+      <label>Nombre:</label>
+      <input formControlName="nombre" />
+
+      <label>Apellido:</label>
+      <input formControlName="apellido" />
+
+      <label>Teléfono:</label>
+      <input formControlName="telefono" />
+
+      <label>Email:</label>
+      <input formControlName="email" />
+
+      <label>Fecha de nacimiento:</label>
+      <input type="date" formControlName="fechaNacimiento" />
+
+      <label>Dirección:</label>
+      <input formControlName="direccion" />
+
+      <label>Tipo de sangre:</label>
+      <input formControlName="tipoSangre" />
+    </fieldset>
+
+    <div style="margin-top: 20px;">
+      <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px;">
+        Guardar cambios
+      </button>
+    </div>
+  </form>
+
+@if (mensaje) {
+  <div class="mensaje">{{ mensaje }}</div>
+}
+
+@if (error) {
+  <div class="error">{{ error }}</div>
+}
+
+</div>
+
+
+
+

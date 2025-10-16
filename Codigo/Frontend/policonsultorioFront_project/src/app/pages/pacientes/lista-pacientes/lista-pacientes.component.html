@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>Lista de Pacientes</h2>
+  <button class="boton-registrar" (click)="volver()">Volver</button>
+    <div class="boton-registrar">
+    <button routerLink="/registro-paciente">Registrar nuevo paciente</button>
+    </div>
+  <form [formGroup]="buscadorForm" (ngSubmit)="buscarPorDni()" class="buscador">
+    <input formControlName="dni" placeholder="Buscar por DNI" />
+    <button type="submit">Buscar</button>
+    <button type="button" (click)="cargarPacientes()">Mostrar todos</button>
+  </form>
+
+@if (cargando) {
+  <div>Cargando pacientes...</div>
+}
+
+@if (mensaje) {
+  <p>{{ mensaje }}</p>
+}
+
+  <table *ngIf="!cargando && pacientes.length > 0" class="tabla">
+    <thead>
+      <tr>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pacientes">
+        <td>{{ p.dniPaciente }}</td>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.apellido }}</td>
+        <td>{{ p.telefono }}</td>
+        <td>{{ p.email }}</td>
+        <td>
+          <button (click)="eliminarPaciente(p.dniPaciente)">ELIMINAR</button>
+          <button [routerLink]="['/editar-paciente', p.dniPaciente]">EDITAR</button>
+          <button (click)="crearTurno(p.dniPaciente)">Crear Turno</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!cargando && pacientes.length === 0">
+    <p>No se encontraron pacientes.</p>
+  </div>
+</div>
+

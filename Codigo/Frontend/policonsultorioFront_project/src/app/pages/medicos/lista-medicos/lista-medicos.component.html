@@ -1,0 +1,48 @@
+<h2>Lista de Médicos</h2>
+
+<button class="boton-registrar" (click)="volver()">Volver</button>
+<button class="boton-registrar" (click)="irARegistro()">Registrar nuevo médico</button>
+
+
+<div class="acciones-superiores">
+  <input
+    type="text"
+    placeholder="Buscar por DNI..."
+    [(ngModel)]="filtroDni"
+    (input)="filtrarMedicos()"
+  />
+  
+</div>
+
+@if (mensaje) {
+  <div class="mensaje">{{ mensaje }}</div>
+}
+
+<table class="tabla-medicos">
+  <thead>
+    <tr>
+      <th>DNI</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Especialidad</th>
+      <th>Matrícula</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Loop que va creando las etiquetas en la tabla por cada médico existente con el filtro actual (si esta vacio, trae todos)-->
+    <tr *ngFor="let m of medicosFiltrados">
+      <td>{{ m.dniMedico }}</td>
+      <td>{{ m.nombre }}</td>
+      <td>{{ m.apellido }}</td>
+      <td>{{ m.especialidad }}</td>
+      <td>{{ m.matricula }}</td>
+      <td>
+        <button class="btn-editar" (click)="editarMedico(m.dniMedico)">Editar</button>
+        <button class="btn-eliminar" (click)="eliminarMedico(m.dniMedico)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

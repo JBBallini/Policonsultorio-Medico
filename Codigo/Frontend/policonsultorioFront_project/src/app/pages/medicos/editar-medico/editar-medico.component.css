@@ -1,0 +1,47 @@
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #515c19;
+  color: white;
+}
+
+.mensaje {
+  text-align: center;
+  color: green;
+  margin-top: 15px;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  margin-top: 15px;
+}

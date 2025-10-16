@@ -1,0 +1,68 @@
+
+<button type="button" (click)="volverAListaDePacientes()" style="width: 15%;">VOLVER</button>
+<div class="container">
+  <h2>Registro de Paciente</h2>
+  
+  <form [formGroup]="pacienteForm" (ngSubmit)="registrarPaciente()">
+    <div class="form-grid">
+      <label>DNI:</label>
+      <input formControlName="dniPaciente">
+
+      <label>Nombre:</label>
+      <input formControlName="nombre">
+
+      <label>Apellido:</label>
+      <input formControlName="apellido">
+
+      <label>Teléfono:</label>
+      <input formControlName="telefono">
+
+      <label>Email:</label>
+      <input formControlName="email" type="email">
+
+      <label>Fecha de nacimiento:</label>
+      <input formControlName="fechaNacimiento" type="date" (change)="alCambiarFechaNacimiento()">
+
+      <label>Dirección:</label>
+      <input formControlName="direccion">
+
+      <label>Tipo de sangre:</label>
+      <input formControlName="tipoSangre">
+    </div>
+
+    <div *ngIf="mostrarResponsable" class="responsable">
+      <h3>Responsable</h3>
+      <div class="form-grid" formGroupName="responsable">
+        <label>DNI:</label>
+        <input formControlName="dniResponsable">
+
+        <label>Nombre:</label>
+        <input formControlName="nombre">
+
+        <label>Apellido:</label>
+        <input formControlName="apellido">
+
+        <label>Teléfono:</label>
+        <input formControlName="telefono">
+
+        <label>Email:</label>
+        <input formControlName="email" type="email">
+
+        <label>Fecha de nacimiento:</label>
+        <input formControlName="fechaNacimiento" type="date">
+
+        <label>Dirección:</label>
+        <input formControlName="direccion">
+
+        <label>Tipo de sangre:</label>
+        <input formControlName="tipoSangre">
+      </div>
+    </div>
+
+    <button type="submit">Registrar</button>
+  </form>
+
+  <p *ngIf="mensaje" class="success">{{ mensaje }}</p>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</div>
+

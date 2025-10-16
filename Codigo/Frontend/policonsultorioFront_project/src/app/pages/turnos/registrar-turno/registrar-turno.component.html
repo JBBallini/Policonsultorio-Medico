@@ -1,0 +1,38 @@
+<h2>Registrar Turno</h2>
+<button type="button" (click)="volver()">Volver</button>
+
+<div *ngIf="paciente">
+  <p><strong>Paciente:</strong> {{ paciente.nombre }} {{ paciente.apellido }}</p>
+  <p><strong>DNI:</strong> {{ paciente.dniPaciente }}</p>
+</div>
+
+<form [formGroup]="turnoForm" (ngSubmit)="crearTurno()">
+  <label>Especialidad:</label>
+  <select formControlName="especialidad" (change)="filtrarMedicosPorEspecialidad()">
+    <option *ngFor="let e of especialidades" [value]="e">{{ e }}</option>
+  </select>
+
+  <label>Médico:</label>
+  <select formControlName="dniMedico" (change)="cargarHorariosDisponibles()">
+    <option *ngFor="let m of medicosFiltrados" [value]="m.dniMedico">
+      {{ m.nombre }} {{ m.apellido }} ({{ m.dniMedico }})
+    </option>
+  </select>
+
+  <label>Fecha:</label>
+  <input type="date" formControlName="fecha" (change)="cargarHorariosDisponibles()" />
+
+  <label>Horario disponible:</label>
+  <select formControlName="hora">
+    <option *ngFor="let h of horariosDisponibles" [value]="h">{{ h }}</option>
+  </select>
+
+  <label>Monto ($):</label>
+  <input type="number" formControlName="monto" min="0" />
+
+  <button type="submit">Registrar Turno</button>
+</form>
+
+<div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
