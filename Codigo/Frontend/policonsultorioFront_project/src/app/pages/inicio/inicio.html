@@ -1,18 +1,25 @@
-<div class="container">
-  <h1>Policonsultorio - Menú Principal</h1>
+<div class="page-container">
+  <h1 class="page-title">Panel de Inicio</h1>
 
-  <div class="botones">
-    <button (click)="irA('/lista-de-Pacientes')" class="btn primary">
-      Lista de Pacientes
-    </button>
+  <div class="card-container">
+    <div class="info-card">
+      <h2>Gestión de Médicos</h2>
+      <p>Accedé al listado y control de médicos del policonsultorio.</p>
+      <button (click)="irA('/lista-de-medicos')" class="btn-primary">Ver Médicos</button>
+    </div>
 
-    <button (click)="irA('/lista-de-medicos')" class="btn primary">
-      Lista de Médicos
-    </button>
+    <div class="info-card">
+      <h2>Gestión de Pacientes</h2>
+      <p>Consultá los registros y datos personales de los pacientes.</p>
+      <button (click)="irA('/lista-de-Pacientes')" class="btn-primary">Ver Pacientes</button>
+    </div>
 
-    <button (click)="irA('/lista-turnos')" class="btn primary">
-      Lista de Turnos
-    </button>
+    <div class="info-card">
+      <h2>Gestión de Turnos</h2>
+      <p>Administrá los turnos médicos y su disponibilidad.</p>
+      <button (click)="irA('/lista-turnos')" class="btn-primary">Ver Turnos</button>
+    </div>
   </div>
 </div>
+
 

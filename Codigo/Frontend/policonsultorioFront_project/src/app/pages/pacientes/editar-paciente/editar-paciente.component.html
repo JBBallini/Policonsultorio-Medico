@@ -1,91 +1,119 @@
-<button type="button" (click)="volverAListaDePacientes()" style="width: 15%;">VOLVER</button>
+<div class="page-container">
+  <h1 class="page-title">Editar Paciente</h1>
 
-<div class="container">
-  <h2>Editar Paciente</h2>
+  <div class="toolbar">
+    <button class="btn-secondary" type="button" (click)="volverAListaDePacientes()">← Volver</button>
+  </div>
 
-  <div *ngIf="cargando">Cargando datos...</div>
+  <div class="card-container">
+    <div class="form-box">
+      <form [formGroup]="pacienteForm" (ngSubmit)="actualizarPaciente()">
+        <h3 class="section-title">Datos del Paciente</h3>
 
-  <form *ngIf="!cargando" [formGroup]="pacienteForm" (ngSubmit)="actualizarPaciente()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>DNI</label>
+            <input formControlName="dniPaciente" required />
+          </div>
 
-    <!-- PACIENTE -->
-    <fieldset>
-      <legend>Datos del Paciente</legend>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input formControlName="nombre" required />
+          </div>
 
-      <label>DNI:</label>
-      <input formControlName="dniPaciente" />
+          <div class="form-group">
+            <label>Apellido</label>
+            <input formControlName="apellido" required />
+          </div>
 
-      <label>Nombre:</label>
-      <input formControlName="nombre" />
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input formControlName="telefono" required />
+          </div>
 
-      <label>Apellido:</label>
-      <input formControlName="apellido" />
+          <div class="form-group">
+            <label>Email</label>
+            <input formControlName="email" required />
+          </div>
 
-      <label>Teléfono:</label>
-      <input formControlName="telefono" />
+          <div class="form-group">
+            <label>Fecha de nacimiento</label>
+            <input
+              type="date"
+              formControlName="fechaNacimiento"
+              (change)="verificarEdadParaResponsable()"
+            />
+          </div>
 
-      <label>Email:</label>
-      <input formControlName="email" />
+          <div class="form-group">
+            <label>Dirección</label>
+            <input formControlName="direccion" />
+          </div>
 
-      <label>Fecha de nacimiento:</label>
-      <input
-        type="date"
-        formControlName="fechaNacimiento"
-        (change)="verificarEdadParaResponsable()"
-      />
+          <div class="form-group">
+            <label>Tipo de sangre</label>
+            <input formControlName="tipoSangre" />
+          </div>
+        </div>
 
-      <label>Dirección:</label>
-      <input formControlName="direccion" />
+        <!-- RESPONSABLE -->
+        <div *ngIf="tieneResponsable" [formGroup]="responsableForm">
+          <h3 class="section-title">Datos del Responsable</h3>
 
-      <label>Tipo de sangre:</label>
-      <input formControlName="tipoSangre" />
-    </fieldset>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>DNI Responsable</label>
+              <input formControlName="dniResponsable" />
+            </div>
 
-    <!-- RESPONSABLE -->
-    <fieldset *ngIf="tieneResponsable" [formGroup]="responsableForm">
-      <legend>Datos del Responsable</legend>
+            <div class="form-group">
+              <label>Nombre</label>
+              <input formControlName="nombre" />
+            </div>
 
-      <label>DNI Responsable:</label>
-      <input formControlName="dniResponsable" />
+            <div class="form-group">
+              <label>Apellido</label>
+              <input formControlName="apellido" />
+            </div>
 
-      <label>Nombre:</label>
-      <input formControlName="nombre" />
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input formControlName="telefono" />
+            </div>
 
-      <label>Apellido:</label>
-      <input formControlName="apellido" />
+            <div class="form-group">
+              <label>Email</label>
+              <input formControlName="email" />
+            </div>
 
-      <label>Teléfono:</label>
-      <input formControlName="telefono" />
+            <div class="form-group">
+              <label>Fecha de nacimiento</label>
+              <input type="date" formControlName="fechaNacimiento" />
+            </div>
 
-      <label>Email:</label>
-      <input formControlName="email" />
+            <div class="form-group">
+              <label>Dirección</label>
+              <input formControlName="direccion" />
+            </div>
 
-      <label>Fecha de nacimiento:</label>
-      <input type="date" formControlName="fechaNacimiento" />
+            <div class="form-group">
+              <label>Tipo de sangre</label>
+              <input formControlName="tipoSangre" />
+            </div>
+          </div>
+        </div>
 
-      <label>Dirección:</label>
-      <input formControlName="direccion" />
+        <div class="divider"></div>
 
-      <label>Tipo de sangre:</label>
-      <input formControlName="tipoSangre" />
-    </fieldset>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
 
-    <div style="margin-top: 20px;">
-      <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 8px 14px; border-radius: 6px;">
-        Guardar cambios
-      </button>
+      <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+      <p *ngIf="error" class="error">{{ error }}</p>
     </div>
-  </form>
-
-@if (mensaje) {
-  <div class="mensaje">{{ mensaje }}</div>
-}
-
-@if (error) {
-  <div class="error">{{ error }}</div>
-}
-
+  </div>
 </div>
-
-
 
 

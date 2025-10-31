@@ -1,58 +1,96 @@
-<h2>Registro de Médico</h2>
+<div class="page-container">
+  <h1 class="page-title">Registro de Médico</h1>
 
-<button class="volver" (click)="volverALista()">VOLVER</button>
-
-<form [formGroup]="medicoForm" (ngSubmit)="registrarMedico()">
-  <label>DNI:</label>
-  <input formControlName="dniMedico" required />
-
-  <label>Nombre:</label>
-  <input formControlName="nombre" required />
-
-  <label>Apellido:</label>
-  <input formControlName="apellido" required />
-
-  <label>Teléfono:</label>
-  <input formControlName="telefono" required />
-
-  <label>Email:</label>
-  <input formControlName="email" required />
-
-  <label>Especialidad:</label>
-  <input formControlName="especialidad" required />
-
-  <label>Matrícula:</label>
-  <input formControlName="matricula" required />
-
-  <h3>Horarios</h3>
-  <div formArrayName="horarios">
-    <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i" class="horario">
-      <!-- Seleccion de dia de la semana -->
-      <select formControlName="diaSemana">
-        <option value="LUN">Lunes</option>
-        <option value="MAR">Martes</option>
-        <option value="MIE">Miércoles</option>
-        <option value="JUE">Jueves</option>
-        <option value="VIE">Viernes</option>
-      </select>
-      <input type="time" formControlName="horaInicio" />
-      <input type="time" formControlName="horaFin" />
-      <button type="button" (click)="eliminarHorario(i)">Eliminar</button>
-    </div>
+  <div class="toolbar">
+    <button class="btn-secondary" type="button" (click)="volverALista()">← Volver</button>
   </div>
 
-  <button type="button" (click)="agregarHorario()">+ Agregar horario</button>
-  <br /><br />
+  <div class="card-container">
+    <div class="form-box">
+      <form [formGroup]="medicoForm" (ngSubmit)="registrarMedico()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>DNI</label>
+            <input formControlName="dniMedico" required />
+          </div>
 
-  <button type="submit">Registrar Médico</button>
-</form>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input formControlName="nombre" required />
+          </div>
 
-@if (mensaje) {
-  <div class="mensaje">{{ mensaje }}</div>
-}
+          <div class="form-group">
+            <label>Apellido</label>
+            <input formControlName="apellido" required />
+          </div>
 
-@if (error) {
-  <div class="error">{{ error }}</div>
-}
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input formControlName="telefono" required />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input formControlName="email" required />
+          </div>
+
+          <div class="form-group">
+            <label>Especialidad</label>
+            <input formControlName="especialidad" required />
+          </div>
+
+          <div class="form-group">
+            <label>Matrícula</label>
+            <input formControlName="matricula" required />
+          </div>
+        </div>
+
+        <h3 class="section-title">Horarios</h3>
+
+        <div formArrayName="horarios" class="horarios-container">
+          <div
+            *ngFor="let horario of horarios.controls; let i = index"
+            [formGroupName]="i"
+            class="horario-item"
+          >
+            <select formControlName="diaSemana">
+              <option value="LUN">Lunes</option>
+              <option value="MAR">Martes</option>
+              <option value="MIE">Miércoles</option>
+              <option value="JUE">Jueves</option>
+              <option value="VIE">Viernes</option>
+            </select>
+
+            <input type="time" formControlName="horaInicio" />
+            <input type="time" formControlName="horaFin" />
+
+            <button
+              type="button"
+              class="btn-danger small"
+              (click)="eliminarHorario(i)"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn-outline" (click)="agregarHorario()">
+            + Agregar horario
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Registrar Médico</button>
+        </div>
+      </form>
+
+      <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+      <p *ngIf="error" class="error">{{ error }}</p>
+    </div>
+  </div>
+</div>
 
 

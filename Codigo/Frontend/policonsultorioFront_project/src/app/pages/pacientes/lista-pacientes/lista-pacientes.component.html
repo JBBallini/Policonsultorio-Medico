@@ -1,52 +1,54 @@
-<div class="container">
-  <h2>Lista de Pacientes</h2>
-  <button class="boton-registrar" (click)="volver()">Volver</button>
-    <div class="boton-registrar">
-    <button routerLink="/registro-paciente">Registrar nuevo paciente</button>
+<div class="page-container">
+  <h1 class="page-title">Lista de Pacientes</h1>
+
+  <div class="card-container">
+    <div class="toolbar">
+      <button class="btn-secondary" (click)="volver()">← Volver</button>
+      <button class="btn-primary" routerLink="/registro-paciente">Registrar nuevo paciente</button>
     </div>
-  <form [formGroup]="buscadorForm" (ngSubmit)="buscarPorDni()" class="buscador">
-    <input formControlName="dni" placeholder="Buscar por DNI" />
-    <button type="submit">Buscar</button>
-    <button type="button" (click)="cargarPacientes()">Mostrar todos</button>
-  </form>
 
-@if (cargando) {
-  <div>Cargando pacientes...</div>
-}
+    <form [formGroup]="buscadorForm" (ngSubmit)="buscarPorDni()" class="buscador">
+      <input formControlName="dni" placeholder="Buscar por DNI..." />
+      <div class="actions">
+        <button type="submit" class="btn-primary">Buscar</button>
+        <button type="button" class="btn-outline" (click)="cargarPacientes()">Mostrar todos</button>
+      </div>
+    </form>
 
-@if (mensaje) {
-  <p>{{ mensaje }}</p>
-}
+    <div *ngIf="cargando" class="loading">Cargando pacientes...</div>
+    <p *ngIf="mensaje && !cargando" class="mensaje">{{ mensaje }}</p>
 
-  <table *ngIf="!cargando && pacientes.length > 0" class="tabla">
-    <thead>
-      <tr>
-        <th>DNI</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Teléfono</th>
-        <th>Email</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of pacientes">
-        <td>{{ p.dniPaciente }}</td>
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.apellido }}</td>
-        <td>{{ p.telefono }}</td>
-        <td>{{ p.email }}</td>
-        <td>
-          <button (click)="eliminarPaciente(p.dniPaciente)">ELIMINAR</button>
-          <button [routerLink]="['/editar-paciente', p.dniPaciente]">EDITAR</button>
-          <button (click)="crearTurno(p.dniPaciente)">Crear Turno</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="table-wrapper" *ngIf="!cargando && pacientes.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pacientes">
+            <td>{{ p.dniPaciente }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.apellido }}</td>
+            <td>{{ p.telefono }}</td>
+            <td>{{ p.email }}</td>
+            <td class="acciones">
+              <button class="btn-outline small" (click)="crearTurno(p.dniPaciente)">Turno</button>
+              <button class="btn-primary small" [routerLink]="['/editar-paciente', p.dniPaciente]">Editar</button>
+              <button class="btn-danger small" (click)="eliminarPaciente(p.dniPaciente)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="!cargando && pacientes.length === 0">
-    <p>No se encontraron pacientes.</p>
+    <div *ngIf="!cargando && pacientes.length === 0" class="no-data">
+      <p>No se encontraron pacientes.</p>
+    </div>
   </div>
 </div>
-

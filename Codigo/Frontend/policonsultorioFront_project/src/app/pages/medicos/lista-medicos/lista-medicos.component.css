@@ -1,72 +1,213 @@
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --primary: #0b6637;
+  --accent: #094d2a;
+  --secondary: #fafcfd;
+  --text: #333;
+  --card-bg: #ffffff;
 }
 
-.acciones-superiores {
+/* === CONTENEDOR PRINCIPAL === */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f9fbfc, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* === TÍTULO === */
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* === CARD === */
+.card-container {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  padding: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* === ACCIONES SUPERIORES === */
+.actions-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
 }
 
-input[type="text"] {
-  padding: 6px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 220px;
-}
-
+/* === BOTONES === */
 button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
-.boton-registrar {
-  margin-left: 10px;
-  padding: 6px 10px;
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #007bff;
-  margin-bottom: 10px;
-  color: white;
-  font-size: medium;
-  font-weight: bold;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
-.btn-editar {
-  background-color: #007bff;
-  color: white;
-  margin-right: 5px;
+.btn-primary:hover {
+  background-color: var(--accent);
 }
 
-.btn-eliminar {
-  background-color: #dc3545;
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary);
   color: white;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-danger {
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+.btn-danger:hover {
+  background-color: #a93226;
+}
+
+/* === CAMPO DE BÚSQUEDA === */
+.search-bar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.search-bar input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* === TABLA === */
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .tabla-medicos {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.95rem;
 }
 
 .tabla-medicos th,
 .tabla-medicos td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .tabla-medicos th {
-  background-color: #f4f4f4;
+  background-color: var(--secondary);
+  color: var(--accent);
+  font-weight: 600;
 }
 
+.tabla-medicos tr:hover {
+  background-color: #f6f8f7;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+/* === MENSAJES === */
 .mensaje {
   text-align: center;
-  color: green;
-  margin-top: 10px;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: 15px;
 }
 
+.btn-primary {
+  background-color: #0b6637 !important;
+}
+
+.btn-primary {
+  background-color: #0b6637 !important; 
+}
+/* === TÍTULO === */
+.page-title {
+  color:   #0b6637 !important;
+}
+
+/* === BOTONES === */
+button {
+  background-color: #0b6637 !important;
+}
+
+.btn-primary {
+  background-color: #0b6637 !important;
+}
+
+.btn-primary:hover {
+  background-color: #0b6637 !important;
+}
+
+.btn-secondary {
+  background-color: #0b6637 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #0b6637 !important;
+}
+
+.btn-outline {
+  background-color: #0b6637 !important;
+}
+
+.btn-outline:hover {
+  background-color: #0b6637 !important;
+}

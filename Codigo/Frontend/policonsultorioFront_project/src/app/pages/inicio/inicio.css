@@ -1,55 +1,101 @@
-.container {
-  text-align: center;
-  margin-top: 80px;
-  padding: 30px;
+/* === Estilos generales === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+  --primary: #0b6637;      /* Verde principal */
+  --secondary: #f9fbfc;    /* Fondo gris muy claro */
+  --accent: #094d2a;       /* Verde más oscuro para hover */
+  --text: #333333;
+  --card-bg: #ffffff;
 }
 
-h1 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.subtitulo {
-  color: #666;
-  margin-bottom: 30px;
-  font-size: 15px;
-}
-
-.botones {
+/* === Contenedor principal === */
+.page-container {
+  min-height: 100vh;
+  background-color: var(--secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  padding: 60px 20px;
+  font-family: 'Inter', sans-serif;
 }
 
-.btn {
-  width: 260px;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* === Título principal === */
+.page-title {
+  font-size: 2.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 50px;
+  text-align: center;
 }
 
-.btn.primary {
-  background-color: #007bff;
+/* === Contenedor de las tarjetas === */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* === Tarjeta individual === */
+.info-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* === Título de cada tarjeta === */
+.info-card h2 {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+/* === Texto descriptivo de cada tarjeta === */
+.info-card p {
+  color: var(--text);
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* === Botón principal === */
+.btn-primary {
+  background-color: var(--primary);
   color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
-.btn.primary:hover {
-  background-color: #0056b3;
-  transform: scale(1.03);
+.btn-primary:hover {
+  background-color: var(--accent);
 }
 
-@media (min-width: 600px) {
-  .botones {
-    flex-direction: row;
-    justify-content: center;
-  }
 
-  .btn {
-    width: 200px;
-  }
+.btn-primary {
+  background-color: #0b6637 !important;
+  color: white !important;
 }
+.info-card h2 {
+  color:   #0b6637 !important;
+}
+
+.page-title {
+  color:   #0b6637 !important;
+}
+

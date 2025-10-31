@@ -1,55 +1,59 @@
-<h2>Editar Turno</h2>
+<div class="page-container">
+  <h1 class="page-title">Editar Turno</h1>
 
-<form [formGroup]="form" (ngSubmit)="guardar()">
-  <div class="campo">
-    <label>DNI Paciente</label>
-    <input formControlName="dniPaciente" />
+  <div class="toolbar">
+    <button class="btn-secondary" type="button" (click)="volver()">← Volver</button>
   </div>
 
-  <div class="campo">
-    <label>DNI Médico</label>
-    <input formControlName="dniMedico" />
+  <div class="card-container">
+    <div class="form-box">
+      <form [formGroup]="form" (ngSubmit)="guardar()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>DNI Paciente</label>
+            <input formControlName="dniPaciente" />
+          </div>
+
+          <div class="form-group">
+            <label>DNI Médico</label>
+            <input formControlName="dniMedico" />
+          </div>
+
+          <div class="form-group">
+            <label>Fecha</label>
+            <input
+              type="date"
+              formControlName="fecha"
+              (change)="cargarHorariosDisponibles()"
+              placeholder="Selecciona una fecha"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Hora</label>
+            <select formControlName="hora">
+              <option value="" disabled selected>Selecciona una hora disponible</option>
+              <option *ngFor="let h of horariosDisponibles" [value]="h">{{ h }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Asistencia</label>
+            <input formControlName="estadoAsistencia" />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary" [disabled]="form.invalid">
+            Guardar
+          </button>
+        </div>
+      </form>
+
+      <p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+      <p *ngIf="error" class="error">{{ error }}</p>
+    </div>
   </div>
-
-  <div class="campo">
-    <label>Fecha</label>
-    <input
-      type="date"
-      formControlName="fecha"
-      (change)="cargarHorariosDisponibles()"
-      placeholder="Selecciona una fecha"
-    />
-  </div>
-
-  <div class="campo">
-    <label>Hora</label>
-    <select formControlName="hora">
-      <option value="" disabled selected>Selecciona una hora disponible</option>
-      <option *ngFor="let h of horariosDisponibles" [value]="h">
-        {{ h }}
-      </option>
-    </select>
-  </div>
-
-  <div class="campo">
-    <label>Asistencia</label>
-    <input formControlName="estadoAsistencia"/>
-  </div>
-
-@if (error && mensaje) {
-  <div class="error">{{ error }}</div>
-}
-@if (mensaje) {
-  <div class="mensaje">{{ mensaje }}</div>
-}
-
-  <div class="actions">
-    <button type="submit" class="primary" [disabled]="form.invalid">
-      Guardar
-    </button>
-    <button type="button" (click)="volver()">Volver</button>
-  </div>
-</form>
-
-
-
+</div>

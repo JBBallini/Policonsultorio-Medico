@@ -1,45 +1,54 @@
-<h2>Turnos</h2>
+<div class="page-container">
+  <h1 class="page-title">Lista de Turnos</h1>
 
-<button class="volver" (click)="volver()">Volver</button>
-<form [formGroup]="form" (ngSubmit)="filtrar()">
-  <label>Buscar por DNI de paciente</label>
-  <input formControlName="dni" placeholder="DNI" />
-  <div class="actions">
-    <button type="submit" class="primary">Buscar</button>
-    <button type="button" (click)="limpiar()">Limpiar</button>
+  <div class="card-container">
+    <div class="header-bar">
+      <button class="btn-secondary" (click)="volver()">← Volver</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="filtrar()" class="buscador">
+      <div class="form-header">
+        <label for="dni">Buscar por DNI de paciente</label>
+        <div class="actions">
+          <button type="submit" class="btn-primary">Buscar</button>
+          <button type="button" class="btn-outline" (click)="limpiar()">Limpiar</button>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <input id="dni" formControlName="dni" placeholder="Ingrese DNI..." />
+      </div>
+    </form>
+
+    <div *ngIf="cargando" class="loading">Cargando turnos...</div>
+    <p *ngIf="mensaje && !cargando" class="mensaje">{{ mensaje }}</p>
+
+    <div class="table-wrapper" *ngIf="!cargando">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>DNI Paciente</th>
+            <th>DNI Médico</th>
+            <th>Asistencia</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of filtrados">
+            <td>{{ t.fecha }}</td>
+            <td>{{ t.hora }}</td>
+            <td>{{ t.dniPaciente?.dniPaciente || t.dniPaciente }}</td>
+            <td>{{ t.dniMedico?.dniMedico || t.dniMedico }}</td>
+            <td>{{ t.estadoAsistencia ? 'Sí' : 'No' }}</td>
+            <td class="acciones">
+              <button type="button" class="btn-primary small" (click)="editar(t.id || t.pk)">Editar</button>
+              <button type="button" class="btn-danger small" (click)="eliminar(t.id || t.pk)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</form>
-
-@if (cargando) {
-  <div>Cargando...</div>
-}
-@if (mensaje && !cargando) {
-  <div class="mensaje">{{ mensaje }}</div>
-}
-
-<table class="table" *ngIf="!cargando">
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Hora</th>
-      <th>DNI Paciente</th>
-      <th>DNI Médico</th>
-      <th>Asistencia</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let t of filtrados">
-      <td>{{ t.fecha }}</td>
-      <td>{{ t.hora }}</td>
-      <td>{{ t.dniPaciente?.dniPaciente || t.dniPaciente }}</td>
-      <td>{{ t.dniMedico?.dniMedico || t.dniMedico }}</td>
-      <td>{{ t.estadoAsistencia ? 'Sí' : 'No' }}</td>
-      <td class="row-actions">
-        <button type="button" (click)="editar(t.id || t.pk)" class="small">Editar</button>
-        <button type="button" (click)="eliminar(t.id || t.pk)" class="small danger">Eliminar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+</div>
