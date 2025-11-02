@@ -1,0 +1,23 @@
+Diagrama Estados: Turno
+
+@startuml
+
+'DIAGRAMA ESTADOS - Turno'
+
+[*] --> Disponible: Solicita Turno
+
+
+Disponible --> Asignado
+Notificado --> Asistido: Pagado
+Notificado --> Cancelado
+
+Notificado --> Disponible: Reprogramado
+NoAsistido --> Cancelado: Enviar Advertencia
+
+Notificado --> NoAsistido
+Asignado --> Notificado
+
+Asistido --> [*]
+Cancelado --> [*]
+
+@enduml

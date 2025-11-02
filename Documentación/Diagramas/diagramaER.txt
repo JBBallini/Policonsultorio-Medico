@@ -1,0 +1,119 @@
+@startuml
+
+' DEFINICIONES GENERALES DEL DIAGRAMA
+!define table(x) class x << (T,#FFAAAA) >>
+!define primaryKey(x) x
+!define foreignKey(y) y
+
+' ENTIDADES Y ATRIBUTOS
+
+table(Paciente) {
+  primaryKey(dniPaciente): String <b>(PK)</b>
+  nombre: String
+  apellido: String
+  telefono: String
+  email: String
+  fechaNacimiento: Date
+  direccion: String
+  tipoSangre: String
+}
+
+table(Responsable) {
+  primaryKey(dniResponsable): String <b>(PK)</b>
+  foreignKey(dniPaciente): String <b>(FK)</b>
+  nombre: String
+  apellido: String
+  telefono: String
+  email: String
+  fechaNacimiento: Date
+  direccion: String
+  tipoSangre: String
+}
+
+table(Administrador) {
+  primaryKey(dniAdministrador): String <b>(PK)</b>
+  foreignKey(idUsuario): int <b>(FK)</b>
+  nombre: String
+  apellido: String
+  telefono: String
+  email: String
+}
+
+table(Secretario) {
+  primaryKey(dniSecretario): String <b>(PK)</b>
+  foreignKey(idUsuario): int <b>(FK)</b>
+  nombre: String
+  apellido: String
+  telefono: String
+  email: String
+}
+
+table(Medico) {
+  primaryKey(dniMedico): String <b>(PK)</b>
+  foreignKey(idUsuario): int <b>(FK)</b>
+  nombre: String
+  apellido: String
+  telefono: String
+  email: String
+  especialidad: String
+  matricula: String
+}
+
+table(HistorialMedico){
+  primaryKey(id): int <b>(PK)</b>
+  foreignKey(dniPaciente): String <b>(FK)</b>
+}
+
+table(RegistroHistorial){
+  primaryKey(id): int <b>(PK)</b>
+  foreignKey(idHistorial): int <b>(FK)</b>
+  foreignKey(dniMedico): String <b>(FK)</b>
+  fecha: Date
+  observaciones: String
+}
+
+table(Horario) {
+  primaryKey(id): int <b>(PK)</b>
+  foreignKey(dniMedico): String <b>(FK)</b>
+  horaInicio: Time
+  horaFin: Time
+}
+
+table(Usuario) {
+  primaryKey(id): int <b>(PK)</b>
+  username: String
+  password: String
+  rol: Rol
+}
+
+table(Turno) {
+  primaryKey(id): int <b>(PK)</b>
+  foreignKey(dniPaciente): String <b>(FK)</b>
+  foreignKey(dniMedico): String <b>(FK)</b>
+  fecha: Date
+  hora: Time
+  estadoAsistencia: Boolean
+}
+
+table(Pago) {
+  primaryKey(id): int <b>(PK)</b>
+  foreignKey(idTurno): int <b>(FK)</b>
+  monto: Double
+  estadoPago: Boolean
+}
+
+' RELACIONES
+
+Paciente ||--|| Responsable
+Medico ||--|{ Horario
+Administrador ||--|| Usuario
+Secretario ||--|| Usuario
+Medico ||--|| Usuario
+Paciente ||--o{ Turno
+Medico ||--o{ Turno
+Paciente ||--|| HistorialMedico
+HistorialMedico ||--|{ RegistroHistorial
+RegistroHistorial ||--|{ Medico
+Pago ||--|| Turno
+
+@enduml
